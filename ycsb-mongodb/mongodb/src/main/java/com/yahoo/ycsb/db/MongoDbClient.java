@@ -25,6 +25,7 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.CreateCollectionOptions;
 import com.mongodb.client.model.vault.DataKeyOptions;
+import com.mongodb.client.model.InsertManyOptions;
 import com.mongodb.client.result.UpdateResult;
 import com.mongodb.client.vault.ClientEncryption;
 import com.mongodb.client.vault.ClientEncryptions;
@@ -463,7 +464,9 @@ public class MongoDbClient extends DB {
             return 0;
         } else {
            try {
-             collection.insertMany(insertList);
+             InsertManyOptions options = new InsertManyOptions();
+             options.ordered(false);
+             collection.insertMany(insertList, options);
              insertCount = 0;
              return 0;
            }
